@@ -1,13 +1,15 @@
 import express from 'express';
 import cors from 'cors';
-const app = express();
+import { productRouter } from './app/modules/product/product.route';
+export const app = express();
 
-// Parsers
+// ----- Parsers ------ //
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// ----- Routers ----- //
+app.use('/api', productRouter);
 
-export default app;
+app.get('/', (req, res) => {
+  res.send('Book-shop app in running...');
+});

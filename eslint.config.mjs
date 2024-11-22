@@ -15,21 +15,10 @@ export default [
       'no-console': 'warn',
       'no-undef': 'error',
     },
-    globals: {
-      process: 'readonly',
-    },
   },
   {
     ignores: ['.node_modules/*', '.dist/*'],
   },
-  {
-    extends: [
-      'eslint:recommended', // Base ESLint recommended rules
-      pluginJs.configs.recommended, // ESLint JS plugin recommended rules
-      'plugin:@typescript-eslint/recommended', // TypeScript ESLint recommended rules
-    ],
-  },
-
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
 ];
