@@ -8,9 +8,9 @@ const createOrder = async (req: Request, res: Response) => {
 
     // ----- Send Response ----- //
     res.status(200).json({
-      message: 'Order created successfully',
-      status: true,
-      data: result,
+      message: result.message,
+      status: result.success,
+      data: result.data,
     });
   } catch (error) {
     console.log(error);
