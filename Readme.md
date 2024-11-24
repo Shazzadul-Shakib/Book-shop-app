@@ -1,12 +1,12 @@
-# **📚 Bookstore API**
+# **📚 Book-shop-app API**
 
-Welcome to the **Bookstore API**! This application provides a seamless way to manage books, orders, and revenue calculations for an online bookstore.
+Welcome to the **Book-shop-app API**! This application provides a seamless way to manage books, orders, and revenue calculations for an online Book-shop-app.
 
 ---
 
 ## **🚀 Live URL**
 
-Visit the live application: [Bookstore API](https://your-live-app-url.com)
+Visit the live application: [Book-shop-app API](https://your-live-app-url.com)
 
 ---
 
@@ -22,7 +22,7 @@ Visit the live application: [Bookstore API](https://your-live-app-url.com)
 
 ## **💡 About the Project**
 
-The **Bookstore API** is a backend service built for managing book inventory, handle orders, and calculate total revenue. It is designed for scalability, ease of use, and efficient data management.
+The **Book-shop-app API** is a backend service built for managing book inventory, handle orders, and calculate total revenue. It is designed for scalability, ease of use, and efficient data management.
 
 ---
 
@@ -44,11 +44,9 @@ The **Bookstore API** is a backend service built for managing book inventory, ha
 - **Validation and Error Handling**:
 
   - Comprehensive validation for inputs like price, email format, and stock availability.
-  - Centralized error-handling middleware for consistent responses.
 
 - **Modern Development Practices**:
   - Modular structure for maintainability.
-  - Middleware for validation and error handling.
 
 ---
 
@@ -56,7 +54,7 @@ The **Bookstore API** is a backend service built for managing book inventory, ha
 
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB, Mongoose
-- **Validation**: Express Validator, Mongoose Schema Validations
+- **Validation**: Mongoose Schema Validations
 - **Others**: TypeScript for type safety and better developer experience
 
 ---
@@ -76,8 +74,8 @@ Follow these steps to set up the application on your local machine:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-repo/bookstore-api.git
-   cd bookstore-api
+   git clone https://github.com/Shazzadul-Shakib/Book-shop-app.git
+   cd Book-shop-app
 
    ```
 
