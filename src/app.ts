@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { productRouter } from './app/modules/product/product.route';
 import { orderRouter } from './app/modules/order/order.route';
+
 export const app = express();
 
 // ----- Parsers ------ //

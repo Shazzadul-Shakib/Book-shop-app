@@ -9,7 +9,7 @@ export const deleteBookService = async (productId: string) => {
       message: 'No book found with the specified ID',
       success: false,
       status: 404,
-      data: [],
+      data: {},
     };
   }
 
@@ -18,6 +18,6 @@ export const deleteBookService = async (productId: string) => {
     message: 'Book deleted successfully',
     success: true,
     status: 200,
-    data: [],
+    data: {},
   };
 };

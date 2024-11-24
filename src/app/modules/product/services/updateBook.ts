@@ -21,7 +21,7 @@ export const updateBookService = async (
       message: 'No book found with the specified ID',
       success: false,
       status: 404,
-      data: [],
+      data: {},
     };
   }
 
