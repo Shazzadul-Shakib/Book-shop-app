@@ -1,5 +1,4 @@
-// Define the BookCategory type
-type BookCategory =
+type TBookCategory =
   | 'Fiction'
   | 'Science'
   | 'SelfDevelopment'
@@ -10,7 +9,7 @@ export type TBook = {
   title: string;
   author: string;
   price: number;
-  category: BookCategory;
+  category: TBookCategory;
   description: string;
   quantity: number;
   inStock: boolean;
@@ -18,7 +17,7 @@ export type TBook = {
   updatedAt: Date;
 };
 
-export type UpdateBookData ={
+export type TUpdateBookData = {
   name?: string;
   author?: string;
   price?: number;
@@ -26,4 +25,4 @@ export type UpdateBookData ={
   description?: string;
   quantity?: number;
   inStock?: boolean;
-}
+};

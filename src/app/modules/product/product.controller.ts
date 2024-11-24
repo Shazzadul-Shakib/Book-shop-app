@@ -21,13 +21,16 @@ const addBook = async (req: Request, res: Response) => {
 // ----- Get All Books From Database ----- //
 const getAllBooks = async (req: Request, res: Response) => {
   try {
-    const result = await productServices.getAllBooksService();
+    const { searchTerm } = req.query;
+    const result = await productServices.getAllBooksService(
+      searchTerm as string,
+    );
 
     // ----- Send Response ----- //
-    res.status(200).json({
-      message: 'Books retrieved successfully',
-      success: true,
-      data: result,
+    res.status(result.status).json({
+      message: result.message,
+      status: result.success,
+      data: result.data,
     });
   } catch (error) {
     console.log(error);
@@ -41,10 +44,10 @@ const getBook = async (req: Request, res: Response) => {
     const result = await productServices.getBookService(productId);
 
     // ----- Send Response ----- //
-    res.status(200).json({
-      message: 'Book retrieved successfully',
-      success: true,
-      data: result,
+    res.status(result.status).json({
+      message: result.message,
+      status: result.success,
+      data: result.data,
     });
   } catch (error) {
     console.log(error);
@@ -62,10 +65,10 @@ const updateBook = async (req: Request, res: Response) => {
     );
 
     // ----- Send Response ----- //
-    res.status(200).json({
-      message: 'Book updated successfully',
-      success: true,
-      data: result,
+    res.status(result.status).json({
+      message: result.message,
+      status: result.success,
+      data: result.data,
     });
   } catch (error) {
     console.log(error);
@@ -76,13 +79,13 @@ const updateBook = async (req: Request, res: Response) => {
 const deleteeBook = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
-    await productServices.deleteBookService(productId);
+    const result = await productServices.deleteBookService(productId);
 
     // ----- Send Response ----- //
-    res.status(200).json({
-      message: 'Book deleted successfully',
-      success: true,
-      data: {},
+    res.status(result.status).json({
+      message: result.message,
+      status: result.success,
+      data: result.data,
     });
   } catch (error) {
     console.log(error);
