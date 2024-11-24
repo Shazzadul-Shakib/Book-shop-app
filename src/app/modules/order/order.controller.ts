@@ -8,7 +8,7 @@ const createOrder = async (req: Request, res: Response) => {
     const result = await orderServices.createOrderService(orderInfo);
 
     // ----- Send Response ----- //
-    res.status(200).json({
+    res.status(result.status).json({
       message: result.message,
       status: result.success,
       data: result.data,

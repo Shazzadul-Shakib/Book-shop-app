@@ -10,11 +10,11 @@ export const createOrderService = async (orderInfo: TOrder) => {
     const desiredProduct = await Book.findById(product);
 
     if (!desiredProduct) {
-      return { success: false, message: 'Product not found.' };
+      return { success: false, status:404, message: 'Product not found.' };
     }
 
     if (orderedQuantity > desiredProduct.quantity) {
-      return { success: false, message: 'Not enough quantity in stock.' };
+      return { success: false, status:400, message: 'Not enough quantity in stock.' };
     }
 
     // ----- Update product quantity atomically ----- //
@@ -35,14 +35,17 @@ export const createOrderService = async (orderInfo: TOrder) => {
     // ----- Return success with the created order ----- //
     return {
       success: true,
+      status:200,
       message: 'Order created successfully.',
       data: createdOrder,
     };
   } catch (error) {
     console.log(error);
+
     // ----- Return failure response ----- //
     return {
       success: false,
+      status:400,
       message: 'Error creating order.',
     };
   }
