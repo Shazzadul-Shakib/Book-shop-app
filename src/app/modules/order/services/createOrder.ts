@@ -10,11 +10,16 @@ export const createOrderService = async (orderInfo: TOrder) => {
     const desiredProduct = await Book.findById(product);
 
     if (!desiredProduct) {
-      return { success: false, status:404, message: 'Product not found.' };
+      return { success: false, status: 404, message: 'Product not found.' };
     }
 
+    // ----- Check if stock is sufficient ----- //
     if (orderedQuantity > desiredProduct.quantity) {
-      return { success: false, status:400, message: 'Not enough quantity in stock.' };
+      throw {
+        name: 'ValidationError',
+        message: 'Not enough quantity in stock.',
+        status: 400,
+      };
     }
 
     // ----- Update product quantity atomically ----- //
@@ -35,18 +40,31 @@ export const createOrderService = async (orderInfo: TOrder) => {
     // ----- Return success with the created order ----- //
     return {
       success: true,
-      status:200,
+      status: 200,
       message: 'Order created successfully.',
       data: createdOrder,
     };
-  } catch (error) {
-    console.log(error);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // ----- Handle Mongoose validation errors ----- //
+    if (error.name === 'ValidationError') {
+      return {
+        success: false,
+        status: error.status || 400,
+        message: error.message,
+        error: error,
+      };
+    }
 
-    // ----- Return failure response ----- //
+    // ----- Handle unexpected errors ----- //
     return {
       success: false,
-      status:400,
-      message: 'Error creating order.',
+      status: 500,
+      message: 'An unexpected error occurred.',
+      error: {
+        name: error.name,
+        message: error.message,
+      },
     };
   }
 };

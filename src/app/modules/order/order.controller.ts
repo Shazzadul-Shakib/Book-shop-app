@@ -10,8 +10,9 @@ const createOrder = async (req: Request, res: Response) => {
     // ----- Send Response ----- //
     res.status(result.status).json({
       message: result.message,
-      status: result.success,
-      data: result.data,
+      success: result.success,
+      data: result.data || null,
+      error: result.error || null,
     });
   } catch (error) {
     console.log(error);
