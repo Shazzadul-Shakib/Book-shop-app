@@ -6,7 +6,7 @@ Welcome to the **Book-shop-app API**! This application provides a seamless way t
 
 ## **🚀 Live URL**
 
-Visit the live application: [Book-shop-app API](https://your-live-app-url.com)
+Visit the live application: [Book-shop-app API](https://book-shop-app-shazzadul-shakib.vercel.app)
 
 ---
 
@@ -110,7 +110,7 @@ Follow these steps to set up the application on your local machine:
 
 ### Base URL:
 
-`https://your-live-app-url.com/api`
+`https://book-shop-app-shazzadul-shakib.vercel.app`
 
 ---
 
