@@ -22,7 +22,7 @@ Visit the live application: [Book-shop-app API](https://book-shop-app-shazzadul-
 
 ## **💡 About the Project**
 
-The **Book-shop-app API** is a backend service built for managing book inventory, handle orders, and calculate total revenue. It is designed for scalability, ease of use, and efficient data management.
+The **Book-shop-app API** is a backend service built for managing book inventory, handle orders, and calculate total revenue.
 
 ---
 
