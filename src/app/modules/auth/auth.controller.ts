@@ -2,6 +2,7 @@ import { CatchAsync } from '../../utils/catchAsync';
 import { authServices } from './auth.service';
 import { SendResponse } from '../../utils/sendResponse';
 
+// ----- register user ----- //
 const registerUser = CatchAsync(async (req, res) => {
   const result = await authServices.registerUserService(req.body);
 
@@ -13,4 +14,16 @@ const registerUser = CatchAsync(async (req, res) => {
   });
 });
 
-export const authController = { registerUser };
+// ----- login user ----- //
+const loginUser = CatchAsync(async (req, res) => {
+  const result = await authServices.loginUserService(req.body);
+
+  SendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: 'User created successfully!',
+    data: result,
+  });
+});
+
+export const authController = { registerUser, loginUser };
