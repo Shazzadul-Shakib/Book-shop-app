@@ -41,10 +41,6 @@ export const authGuard = (...requiredRole: TUserRole[]) => {
       throw new AppError(httpStatus.NOT_FOUND, 'User not found');
     }
 
-    // ----- check if user is blocked ----- //
-    if (user.isBlocked) {
-      throw new AppError(httpStatus.FORBIDDEN, 'User is blocked');
-    }
 
     // ----- Check if role is authorized ----- //
     if (requiredRole && !requiredRole.includes(role)) {

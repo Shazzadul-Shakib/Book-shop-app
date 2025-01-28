@@ -1,8 +1,10 @@
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../../config';
 import AppError from '../../errorHandlers/AppError';
 import { createToken } from '../../utils/createToken';
 import { IUser, TLogin } from './auth.interface';
 import { User } from './auth.model';
+import httpStatus from 'http-status-codes';
 
 // ----- register user service ----- //
 const registerUserService = async (payload: Partial<IUser>) => {
@@ -50,4 +52,46 @@ const loginUserService = async (payload: TLogin) => {
   return { accessToken, refreshToken };
 };
 
-export const authServices = { registerUserService, loginUserService };
+// ----- refresh token service ----- //
+const refreshToken = async (token: string) => {
+  // ----- Verify the JWT token ----- //
+  let decoded: JwtPayload;
+  try {
+    decoded = jwt.verify(
+      token,
+      config.refresh_token_secret as string,
+    ) as JwtPayload;
+  } catch (err) {
+    throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid or expired token!');
+  }
+
+  const { email } = decoded;
+
+  // ----- check existance of user ----- //
+  const user = await User.isUserExistsByEmail(email);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  // ----- create access token ----- //
+  const jwtPayload = {
+    email: user?.email,
+    role: user?.role,
+  };
+
+  const accessToken = createToken(
+    jwtPayload,
+    config.access_token_secret as string,
+    config.access_expire_in as string,
+  );
+
+  return {
+    accessToken,
+  };
+};
+
+export const authServices = {
+  registerUserService,
+  loginUserService,
+  refreshToken,
+};
