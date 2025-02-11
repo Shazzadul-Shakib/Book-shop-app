@@ -4,6 +4,7 @@ import { TOrder } from '../order.interface'; // Assuming TOrder interface exists
 import { Order } from '../order.model'; // Assuming Order model exists
 import { Book } from '../../product/product.model'; // Assuming Book model exists
 import { ObjectId } from 'mongodb';
+import config from '../../../config';
 
 export const createOrderService = async (orderInfo: TOrder) => {
   const { products } = orderInfo;
@@ -48,8 +49,8 @@ export const createOrderService = async (orderInfo: TOrder) => {
 
     // ----- Initiate payment ----- //
     const initiatePayment = {
-      store_id: 'books67aa0672d2300',
-      store_passwd: 'books67aa0672d2300@ssl',
+      store_id: config.storeId,
+      store_passwd:config.storePassword ,
       total_amount: orderInfo.totalPrice,
       currency: 'BDT',
       tran_id: transactionId, // unique transaction ID
