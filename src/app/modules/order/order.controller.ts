@@ -21,20 +21,22 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
-const successPayment = CatchAsync(async (req, res) => {
-  const result = await orderServices.successPayment(req.body);
+export const successPayment = CatchAsync(
+  async (req: Request, res: Response) => {
+    const result = await orderServices.successPayment(req.body);
 
-  if (result?.redirectUrl) {
-    res.redirect(result?.redirectUrl);
-  }
+    if (result?.redirectUrl) {
+      return res.redirect(result.redirectUrl);
+    }
 
-  SendResponse(res, {
-    success: true,
-    message: 'Payment successfull',
-    statusCode: 200,
-    data: result,
-  });
-});
+    SendResponse(res, {
+      success: true,
+      message: result.message || 'Payment successful',
+      statusCode: 200,
+      data: result,
+    });
+  },
+);
 
 // ----- Calculation of total revenue ----- //
 const getTotalRevenue = async (req: Request, res: Response) => {

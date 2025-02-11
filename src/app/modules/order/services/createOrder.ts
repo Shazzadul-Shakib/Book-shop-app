@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import { TOrder } from '../order.interface'; // Assuming TOrder interface exists
 import { Order } from '../order.model'; // Assuming Order model exists

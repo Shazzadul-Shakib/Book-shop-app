@@ -12,4 +12,7 @@ export default {
   refresh_token_secret: process.env.REFRESH_TOKEN_SECRET,
   access_expire_in: process.env.JWT_ACCESS_EXPIRE_IN,
   refresh_expire_in: process.env.JWT_REFRESH_EXPIRE_IN,
+  storeId: process.env.SSLCOMMERZ_STORE_ID,
+  storePassword: process.env.SSLCOMMERZ_STORE_PASSWORD,
+  clientUrl: process.env.CLIENT_URL,
 };

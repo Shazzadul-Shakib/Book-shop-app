@@ -1,9 +1,9 @@
 import express from 'express';
 import { orderController } from './order.controller';
-// import { authGuard } from '../../middleware/authGuard';
+import { authGuard } from '../../middleware/authGuard';
 
 export const orderRouter = express.Router();
 
-orderRouter.post('/orders', orderController.createOrder);
+orderRouter.post('/orders', authGuard('user'), orderController.createOrder);
 orderRouter.post('/orders/success-payment', orderController.successPayment);
 orderRouter.get('/orders/revenue', orderController.getTotalRevenue);
