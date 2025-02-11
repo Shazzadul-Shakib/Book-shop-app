@@ -10,18 +10,17 @@ export const app = express();
 
 // ----- Parsers ------ //
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 
 app.get('/', (req, res) => {
   res.send('Book-shop app in running...');
 });
 
-
 // ----- Routers ----- //
 app.use('/api', productRouter);
 app.use('/api', orderRouter);
 app.use('/api', authRouter);
-
 
 // ----- global error handler ----- //
 app.use(globalErrorHandler);

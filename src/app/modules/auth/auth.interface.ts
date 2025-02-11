@@ -7,6 +7,9 @@ export interface IUser {
   email: string;
   password: string;
   role: 'admin' | 'user';
+  phone?:string,
+  city?:string,
+  address?:string,
 }
 
 export interface UserModel extends Model<IUser> {

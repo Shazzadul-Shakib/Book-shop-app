@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { ISendResponse } from '../interface';
+import { ISendResponse } from '../interface/response';
 
 export const SendResponse = <T>(res: Response, data: ISendResponse<T>) => {
   res.status(data?.statusCode).json({

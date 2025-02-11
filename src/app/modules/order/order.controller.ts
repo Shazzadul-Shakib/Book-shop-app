@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { orderServices } from './services';
+import { CatchAsync } from '../../utils/catchAsync';
+import { SendResponse } from '../../utils/sendResponse';
 
 // ----- Create order ----- //
 const createOrder = async (req: Request, res: Response) => {
@@ -11,13 +13,28 @@ const createOrder = async (req: Request, res: Response) => {
     res.status(result.status).json({
       message: result.message,
       success: result.success,
-      data: result.data || null,
+      data: result.data,
       error: result.error || null,
     });
   } catch (error) {
     console.log(error);
   }
 };
+
+const successPayment = CatchAsync(async (req, res) => {
+  const result = await orderServices.successPayment(req.body);
+
+  if (result?.redirectUrl) {
+    res.redirect(result?.redirectUrl);
+  }
+
+  SendResponse(res, {
+    success: true,
+    message: 'Payment successfull',
+    statusCode: 200,
+    data: result,
+  });
+});
 
 // ----- Calculation of total revenue ----- //
 const getTotalRevenue = async (req: Request, res: Response) => {
@@ -38,4 +55,5 @@ const getTotalRevenue = async (req: Request, res: Response) => {
 export const orderController = {
   createOrder,
   getTotalRevenue,
+  successPayment,
 };
