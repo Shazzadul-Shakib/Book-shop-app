@@ -17,6 +17,9 @@ const UserSchema = new Schema<IUser, UserModel>(
       trim: true,
       lowercase: true,
     },
+    image: {
+      type: String,
+    },
     password: {
       type: String,
       required: true,

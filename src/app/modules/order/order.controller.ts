@@ -21,6 +21,7 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+// ----- success payment controller ----- //
 export const successPayment = CatchAsync(
   async (req: Request, res: Response) => {
     const result = await orderServices.successPayment(req.body);
@@ -54,8 +55,22 @@ const getTotalRevenue = async (req: Request, res: Response) => {
   }
 };
 
+// ---- get single persons order  ---- //
+const getSinglePersonsOrders = CatchAsync(async (req, res) => {
+  const { userId } = req.params;
+  const result = await orderServices.getSinglePersonsOrdersService(userId);
+
+  SendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: 'Orders retrived successfully',
+    data: result,
+  });
+});
+
 export const orderController = {
   createOrder,
   getTotalRevenue,
   successPayment,
+  getSinglePersonsOrders,
 };

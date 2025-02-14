@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../../config';
 import AppError from '../../errorHandlers/AppError';
 import { createToken } from '../../utils/createToken';
-import { IUser, TLogin } from './auth.interface';
+import { IUpdateUser, IUser, TLogin } from './auth.interface';
 import { User } from './auth.model';
 import httpStatus from 'http-status-codes';
 
@@ -13,6 +14,7 @@ const registerUserService = async (payload: Partial<IUser>) => {
     _id: result._id,
     name: result.name,
     email: result.email,
+    image: result.image,
     role: result.role,
   };
 };
@@ -35,6 +37,7 @@ const loginUserService = async (payload: TLogin) => {
     _id: user?._id,
     name: user?.name,
     email: user?.email,
+    image: user?.image,
     role: user?.role,
   };
 
@@ -50,6 +53,11 @@ const loginUserService = async (payload: TLogin) => {
   );
 
   return { accessToken, refreshToken };
+};
+
+const updateUserProfileService = async (userId: string, payload: IUpdateUser) => {
+  const result = await User.findByIdAndUpdate(userId, payload, { new: true });
+  return result;
 };
 
 // ----- refresh token service ----- //
@@ -93,5 +101,6 @@ const refreshToken = async (token: string) => {
 export const authServices = {
   registerUserService,
   loginUserService,
+  updateUserProfileService,
   refreshToken,
 };

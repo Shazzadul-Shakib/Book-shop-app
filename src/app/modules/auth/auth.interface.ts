@@ -5,6 +5,7 @@ export interface IUser {
   _id: Types.ObjectId;
   name: string;
   email: string;
+  image: string;
   password: string;
   role: 'admin' | 'user';
   phone?:string,
@@ -25,5 +26,13 @@ export type TLogin = {
   email: string;
   password: string;
 };
+
+export interface IUpdateUser {
+  _id?: Types.ObjectId;
+  name?: string;
+  email?: string;
+  image?: string;
+
+}
 
 export type TUserRole = keyof typeof USER_ROLE;

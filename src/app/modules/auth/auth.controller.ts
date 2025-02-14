@@ -36,6 +36,21 @@ const loginUser = CatchAsync(async (req, res) => {
   });
 });
 
+// ----- update user profile ----- //
+const updateUserProfile = CatchAsync(async (req, res) => {
+  const result = await authServices.updateUserProfileService(
+    req.params.userId,
+    req.body,
+  );
+
+  SendResponse(res, {
+    success: true,
+    message: 'User updated successfully!',
+    statusCode: httpStatus.OK,
+    data: result,
+  });
+});
+
 // ----- refresh token ----- //
 const refreshToken = CatchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -49,4 +64,9 @@ const refreshToken = CatchAsync(async (req, res) => {
   });
 });
 
-export const authController = { registerUser, loginUser, refreshToken };
+export const authController = {
+  registerUser,
+  loginUser,
+  updateUserProfile,
+  refreshToken,
+};
