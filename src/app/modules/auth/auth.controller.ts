@@ -47,7 +47,7 @@ const updateUserProfile = CatchAsync(async (req, res) => {
     success: true,
     message: 'User updated successfully!',
     statusCode: httpStatus.OK,
-    data: result,
+    data: { token: result.accessToken },
   });
 });
 

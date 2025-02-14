@@ -55,9 +55,38 @@ const loginUserService = async (payload: TLogin) => {
   return { accessToken, refreshToken };
 };
 
-const updateUserProfileService = async (userId: string, payload: IUpdateUser) => {
+const updateUserProfileService = async (
+  userId: string,
+  payload: IUpdateUser,
+) => {
   const result = await User.findByIdAndUpdate(userId, payload, { new: true });
-  return result;
+
+  // ----- checking if user exist ----- //
+  const user = await User.isUserExistsById(userId);
+  if (!user) {
+    throw new AppError(404, 'User not found');
+  }
+
+  if (!result) {
+    throw new AppError(404, 'Failed to update user profile');
+  }
+
+  // ----- create access token ----- //
+  const jwtPayload = {
+    _id: result._id,
+    name: result.name,
+    email: result.email,
+    image: result.image,
+    role: result.role,
+  };
+
+  const accessToken = createToken(
+    jwtPayload,
+    config.access_token_secret as string,
+    config.access_expire_in as string,
+  );
+
+  return { accessToken };
 };
 
 // ----- refresh token service ----- //
@@ -82,9 +111,13 @@ const refreshToken = async (token: string) => {
   }
 
   // ----- create access token ----- //
+  if (!user?.email || !user?.role) {
+    throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid user data');
+  }
+
   const jwtPayload = {
-    email: user?.email,
-    role: user?.role,
+    email: user.email,
+    role: user.role,
   };
 
   const accessToken = createToken(
