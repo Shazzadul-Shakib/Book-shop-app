@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../../config';
 import AppError from '../../errorHandlers/AppError';
 import { createToken } from '../../utils/createToken';
-import { IUpdateUser, IUser, TLogin } from './auth.interface';
+import { IUpdatePassword, IUpdateUser, IUser, TLogin } from './auth.interface';
 import { User } from './auth.model';
 import httpStatus from 'http-status-codes';
 
@@ -28,7 +28,10 @@ const loginUserService = async (payload: TLogin) => {
   }
 
   // ----- checking if password is matched ----- //
-  if (!(await User.isPasswordMatched(payload?.password, user?.password))) {
+  if (
+    !payload?.password ||
+    !(await User.isPasswordMatched(payload.password, user?.password))
+  ) {
     throw new AppError(400, 'Invalid credentials');
   }
 
@@ -89,6 +92,32 @@ const updateUserProfileService = async (
   return { accessToken };
 };
 
+// ----- update password service ----- //
+const updatePasswordService = async (
+  userId: string,
+  payload: IUpdatePassword,
+) => {
+  // ----- checking if user exist ----- //
+  const user = await User.isUserExistsById(userId);
+  if (!user) {
+    throw new AppError(404, 'User not found');
+  }
+
+  // ----- checking if password is matched ----- //
+  if (
+    !payload?.currentPassword ||
+    !(await User.isPasswordMatched(payload.currentPassword, user?.password))
+  ) {
+    throw new AppError(400, 'Current password is incorrect');
+  }
+
+  // ----- updating password manually to trigger hashing ----- //
+  user.password = payload.newPassword;
+  await user.save();
+
+  return {};
+};
+
 // ----- refresh token service ----- //
 const refreshToken = async (token: string) => {
   // ----- Verify the JWT token ----- //
@@ -135,5 +164,6 @@ export const authServices = {
   registerUserService,
   loginUserService,
   updateUserProfileService,
+  updatePasswordService,
   refreshToken,
 };

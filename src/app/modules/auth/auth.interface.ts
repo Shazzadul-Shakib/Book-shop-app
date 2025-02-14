@@ -1,7 +1,7 @@
-import { Model, Types } from 'mongoose';
+import { Document, Model, Types } from 'mongoose';
 import { USER_ROLE } from './auth.constant';
 
-export interface IUser {
+export interface IUser extends Document {
   _id: Types.ObjectId;
   name: string;
   email: string;
@@ -32,6 +32,11 @@ export interface IUpdateUser {
   name?: string;
   email?: string;
   image?: string;
+
+}
+export interface IUpdatePassword {
+  currentPassword: string;
+  newPassword: string;
 
 }
 

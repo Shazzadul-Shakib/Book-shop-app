@@ -51,6 +51,21 @@ const updateUserProfile = CatchAsync(async (req, res) => {
   });
 });
 
+// ----- upadte password ----- //
+const updatePassword = CatchAsync(async (req, res) => {
+  const updatePassword = await authServices.updatePasswordService(
+    req.params.userId,
+    req.body,
+  );
+
+  SendResponse(res, {
+    success: true,
+    message: 'Password updated successfully!',
+    statusCode: httpStatus.OK,
+    data: updatePassword,
+  });
+});
+
 // ----- refresh token ----- //
 const refreshToken = CatchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -68,5 +83,6 @@ export const authController = {
   registerUser,
   loginUser,
   updateUserProfile,
+  updatePassword,
   refreshToken,
 };
