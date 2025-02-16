@@ -68,9 +68,22 @@ const getSinglePersonsOrders = CatchAsync(async (req, res) => {
   });
 });
 
+// ---- get all orders  ---- //
+const getAllOrders = CatchAsync(async (req, res) => {
+  const result = await orderServices.getAllOrdersService();
+
+  SendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: 'Orders retrived successfully',
+    data: result,
+  });
+});
+
 export const orderController = {
   createOrder,
   getTotalRevenue,
   successPayment,
   getSinglePersonsOrders,
+  getAllOrders,
 };
