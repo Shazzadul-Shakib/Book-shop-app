@@ -80,10 +80,24 @@ const getAllOrders = CatchAsync(async (req, res) => {
   });
 });
 
+// ---- dekete single order  ---- //
+const deleteSingleOrder = CatchAsync(async (req, res) => {
+  const { orderId } = req.params;
+  await orderServices.deleteSingleOrderService(orderId);
+
+  SendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: 'Order deleted successfully',
+    data: {},
+  });
+});
+
 export const orderController = {
   createOrder,
   getTotalRevenue,
   successPayment,
   getSinglePersonsOrders,
   getAllOrders,
+  deleteSingleOrder,
 };

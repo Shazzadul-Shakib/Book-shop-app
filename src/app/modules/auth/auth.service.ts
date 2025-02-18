@@ -118,6 +118,12 @@ const updatePasswordService = async (
   return {};
 };
 
+// ----- get all users service ----- //
+const getAllUsersService = async () => {
+  const users = await User.find().select('-password');
+  return users;
+};
+
 // ----- refresh token service ----- //
 const refreshToken = async (token: string) => {
   // ----- Verify the JWT token ----- //
@@ -165,5 +171,6 @@ export const authServices = {
   loginUserService,
   updateUserProfileService,
   updatePasswordService,
+  getAllUsersService,
   refreshToken,
 };

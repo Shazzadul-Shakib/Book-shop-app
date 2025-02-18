@@ -7,10 +7,11 @@ export interface IUser extends Document {
   email: string;
   image: string;
   password: string;
+  isBlocked: boolean;
   role: 'admin' | 'user';
-  phone?:string,
-  city?:string,
-  address?:string,
+  phone?: string;
+  city?: string;
+  address?: string;
 }
 
 export interface UserModel extends Model<IUser> {
@@ -32,12 +33,11 @@ export interface IUpdateUser {
   name?: string;
   email?: string;
   image?: string;
-
+  isBlocked?: boolean;
 }
 export interface IUpdatePassword {
   currentPassword: string;
   newPassword: string;
-
 }
 
 export type TUserRole = keyof typeof USER_ROLE;

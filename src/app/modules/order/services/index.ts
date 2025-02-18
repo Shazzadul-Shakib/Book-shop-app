@@ -1,4 +1,5 @@
 import { createOrderService } from './createOrder';
+import { deleteSingleOrderService } from './deleteSingleOrder';
 import { getAllOrdersService } from './getAllOrders';
 import { getSinglePersonsOrdersService } from './getSinglePersonsOrder';
 import { getTotalRevenueService } from './getTotalRevenue';
@@ -10,4 +11,5 @@ export const orderServices = {
   successPayment,
   getSinglePersonsOrdersService,
   getAllOrdersService,
+  deleteSingleOrderService,
 };

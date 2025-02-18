@@ -66,6 +66,17 @@ const updatePassword = CatchAsync(async (req, res) => {
   });
 });
 
+// ----- get all users ----- //
+const getAllUsers = CatchAsync(async (req, res) => {
+  const users = await authServices.getAllUsersService();
+  SendResponse(res, {
+    success: true,
+    message: 'All users fetched successfully!',
+    statusCode: httpStatus.OK,
+    data: users,
+  });
+});
+
 // ----- refresh token ----- //
 const refreshToken = CatchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -84,5 +95,6 @@ export const authController = {
   loginUser,
   updateUserProfile,
   updatePassword,
+  getAllUsers,
   refreshToken,
 };
