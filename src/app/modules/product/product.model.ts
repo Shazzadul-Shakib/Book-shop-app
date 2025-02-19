@@ -13,6 +13,10 @@ const bookSchema = new Schema<TBook>(
       required: true,
       trim: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
     price: {
       type: Number,
       required: true,
