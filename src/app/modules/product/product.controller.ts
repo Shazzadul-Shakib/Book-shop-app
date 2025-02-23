@@ -21,10 +21,7 @@ const addBook = async (req: Request, res: Response) => {
 // ----- Get All Books From Database ----- //
 const getAllBooks = async (req: Request, res: Response) => {
   try {
-    const { searchTerm } = req.query;
-    const result = await productServices.getAllBooksService(
-      searchTerm as string,
-    );
+    const result = await productServices.getAllBooksService(req.query);
 
     // ----- Send Response ----- //
     res.status(result.status).json({

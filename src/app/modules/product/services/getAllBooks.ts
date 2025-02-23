@@ -1,17 +1,18 @@
+import QueryBuilder from '../../../../builder/queryBuilder';
 import { Book } from '../product.model';
 
-export const getAllBooksService = async (searchTerm?: string) => {
-  // ----- Case-insensitive search in filter options ----- //
-  const filter = searchTerm
-    ? {
-        $or: [
-          { title: { $regex: searchTerm, $options: 'i' } },
-          { author: { $regex: searchTerm, $options: 'i' } },
-          { category: { $regex: searchTerm, $options: 'i' } },
-        ],
-      }
-    : {};
-  const result = await Book.find(filter);
+export const getAllBooksService = async (
+  searchQuery: Record<string, unknown>,
+) => {
+  // // ----- Case-insensitive search, sort & filter options ----- //
+
+  const bookSearchableFields = ['title', 'author', 'category'];
+  const bookQuery = new QueryBuilder(Book.find(), searchQuery)
+    .search(bookSearchableFields)
+    .filter()
+    .sort()
+    .populate();
+  const result = await bookQuery.queryModel;
 
   // ----- Return response if no books matched ----- //
   if (result.length === 0) {
