@@ -11,7 +11,26 @@ export const app = express();
 // ----- Parsers ------ //
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:5173',
+      'https://my-bookstore-shazzadul-shakib.vercel.app',
+    ],
+    credentials: true,
+  }),
+);
+// Handle preflight requests
+app.options(
+  '*',
+  cors({
+    origin: [
+      'http://localhost:5173',
+      'https://my-bookstore-shazzadul-shakib.vercel.app',
+    ],
+    credentials: true,
+  }),
+);
 
 app.get('/', (req, res) => {
   res.send('Book-shop app in running...');
