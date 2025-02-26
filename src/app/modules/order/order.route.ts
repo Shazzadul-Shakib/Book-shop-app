@@ -6,6 +6,7 @@ export const orderRouter = express.Router();
 
 orderRouter.post('/orders', authGuard('user'), orderController.createOrder);
 orderRouter.post('/orders/success-payment', orderController.successPayment);
+orderRouter.post('/orders/failed-payment', orderController.failedPayment);
 orderRouter.get('/orders/revenue', orderController.getTotalRevenue);
 orderRouter.get('/orders/:userId', orderController.getSinglePersonsOrders);
 orderRouter.delete('/orders/:orderId', orderController.deleteSingleOrder);

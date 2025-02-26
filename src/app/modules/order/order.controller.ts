@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { orderServices } from './services';
 import { CatchAsync } from '../../utils/catchAsync';
 import { SendResponse } from '../../utils/sendResponse';
+import config from '../../config';
 
 // ----- Create order ----- //
 const createOrder = async (req: Request, res: Response) => {
@@ -38,6 +39,10 @@ export const successPayment = CatchAsync(
     });
   },
 );
+// ----- Failed payment controller ----- //
+const failedPayment = CatchAsync(async (req: Request, res: Response) => {
+  return res.redirect(`${config.clientUrl}/checkout/payment-failed`);
+});
 
 // ----- Calculation of total revenue ----- //
 const getTotalRevenue = async (req: Request, res: Response) => {
@@ -100,4 +105,5 @@ export const orderController = {
   getSinglePersonsOrders,
   getAllOrders,
   deleteSingleOrder,
+  failedPayment,
 };

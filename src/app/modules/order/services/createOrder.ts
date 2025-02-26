@@ -50,14 +50,18 @@ export const createOrderService = async (orderInfo: TOrder) => {
     // ----- Initiate payment ----- //
     const initiatePayment = {
       store_id: config.storeId,
-      store_passwd:config.storePassword ,
+      store_passwd: config.storePassword,
       total_amount: orderInfo.totalPrice,
       currency: 'BDT',
       tran_id: transactionId, // unique transaction ID
-      success_url: 'http://localhost:5000/api/orders/success-payment',
-      fail_url: 'http://localhost:5173/fail',
-      cancel_url: 'http://localhost:5173/cancel',
-      ipn_url: 'http://localhost:5000/ipn-success-payment',
+      success_url:
+        'https://book-shop-app-shazzadul-shakib.vercel.app/api/orders/success-payment',
+      fail_url:
+        'https://book-shop-app-shazzadul-shakib.vercel.app/api/orders/failed-payment',
+      cancel_url:
+        'https://book-shop-app-shazzadul-shakib.vercel.app/api/orders/failed-payment',
+      ipn_url:
+        'https://book-shop-app-shazzadul-shakib.vercel.app/ipn-success-payment',
       shipping_method: 'Courier',
       product_name: 'Book Order',
       product_category: 'Books',
