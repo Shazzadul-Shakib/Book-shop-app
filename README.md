@@ -74,8 +74,8 @@ Follow these steps to set up the application on your local machine:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Shazzadul-Shakib/Book-shop-app.git
-   cd Book-shop-app
+   git clone https://github.com/Shazzadul-Shakib/Book-shop-app-server.git
+   cd Book-shop-app-server
 
    ```
 
